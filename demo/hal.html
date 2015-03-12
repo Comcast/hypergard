@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <script src="../node_modules/whatwg-fetch/fetch.js"></script>
+  <script src="../node_modules/es6-promise/dist/es6-promise.js"></script>
+  <script src="../node_modules/handlebars/handlebars.js"></script>
+  <script src="../lib/extend.js"></script>
+  <script src="../lib/urlparse.js"></script>
+  <script src="../lib/urltemplate.js"></script>
+  <script src="../test/mocks/data.js"></script>
+  <script src="../src/hyperGard.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Verdana;
+    }
+
+    div[action] {
+      position: relative;
+      padding: 20px;
+      border-bottom: 1px solid grey;
+      min-height: 115px;
+    }
+
+    div[link]::after {
+      content: 'LINK';
+    }
+
+    div[form]::after {
+      content: 'FORM';
+    }
+
+    div[action]::after {
+      color: ghostwhite;
+      font-weight: bold;
+      font-size: 120px;
+      position: absolute;
+      top: 0;
+      right: 20px;
+      z-index: -1;
+    }
+
+    i[invalid] {
+      color: firebrick;
+    }
+  </style>
+</head>
+<body>
+  <div id="homepage"></div>
+
+  <script>
+    var source = '<div action {{getActionType}}>'+
+      '<div><b>Title:</b> {{getTitle}}</div>' +
+      '<div><b>Action Name:</b> {{getActionName}}</div>' +
+      '<div><b>Raw Url:</b> {{getRawActionUrl}}</div>' +
+      '<div><b>Method:</b> {{getMethod}}</div>' +
+      '<div><b>Templated:</b> {{isTemplated}} {{#if invalidTemplated}}<i invalid>Invalid</i>{{/if}}</div>' +
+      '{{#if isTemplated}}<div><b>Params:</b> {{getParams}}</div>{{/if}}' +
+      '{{#if fields}}<div><b>Fields:</b> {{fields}}</div>{{/if}}' +
+    '</div>';
+
+    var template = Handlebars.compile(source);
+    var container = document.getElementById('homepage');
+
+    var XTVAPI = new HyperGard('https://xtvapi-staging.cloudtv.comcast.net', {
+      prefetchHomepage: false,
+      cacheHomepage: true
+    });
+
+    var buildHomepage = function(data) {
+      var actions = data.listActions();
+      var merged = actions.links.concat(actions.forms).sort();
+      var result = '';
+      var action;
+
+      merged.forEach(function(item) {
+        action = data.getFirstAction(item);
+        if (action.getActionName() !== 'self') {
+          action.invalidTemplated = action.isTemplated() && !action.getParams().length;
+          action.fields = action.getFields ? Object.keys(action.getFields()).join(',') : '';
+          result += template(action);
+        }
+      });
+
+      container.innerHTML = result;
+    };
+
+    XTVAPI.fetch().then(function(home) {
+      buildHomepage(home.data);
+    }, function(err) {
+      console.log('XTVAPI error', err);
+    });
+
+    new HyperGard('', { prefetchHomepage:  false }).fetch().then(function(home) {
+      console.log('then: no url homepage', home);
+    }, function(err) {
+      console.log('error: no url homepage', err);
+    });
+
+    new HyperGard('http://localhost:4444/404', { prefetchHomepage:  false }).fetch().then(function(home) {
+      console.log('then: 404 homepage', home);
+    }, function(err) {
+      console.log('error: 404 homepage', err);
+    });
+
+    new HyperGard('http://localhost:4444/500', { prefetchHomepage: false }).fetch().then(function(home) {
+      console.log('then: 500 homepage', home);
+    }, function(err) {
+      console.log('error: 500 homepage', err);
+    });
+
+    new HyperGard('http://localhost:4444/nodata', { prefetchHomepage: false }).fetch().then(function(home) {
+      console.log('then: nodata homepage', home);
+    }, function(err) {
+      console.log('error: nodata homepage', err);
+    });
+
+    new HyperGard('http://localhost:4444/boolean', { prefetchHomepage: false }).fetch().then(function(home) {
+      console.log('then: boolean homepage', home);
+    }, function(err) {
+      console.log('error: boolean homepage', err);
+    });
+
+    new HyperGard('http://localhost:4444/', { prefetchHomepage: false }).fetch().then(function(home) {
+      console.log('then: homepage', home);
+    }, function(err) {
+      console.log('error: homepage', err);
+    });
+
+    var hyperGard = new HyperGard('http://localhost:4444/', {
+      prefetchHomepage: false,
+      cacheHomepage: true
+    });
+
+    hyperGard.fetch().then(function(home) {
+      console.log('then 1: homepage', home);
+    }, function(err) {
+      console.log('error 1: homepage', err);
+    });
+
+    hyperGard.fetch().then(function(home) {
+      console.log('then 2: homepage', home);
+    }, function(err) {
+      console.log('error 2: homepage', err);
+    });
+
+    hyperGard.fetch().then(function(home) {
+      console.log('then 1: homepage', home);
+      home.data.getFirstAction('formGetOneField', { param: 'test' }).fetch().then(function() {
+        console.log('then 1: formGetOneField', home);
+      }, function(err) {
+        console.log('error 1: formGetOneField', err);
+      });
+    }, function(err) {
+      console.log('error 1: homepage', err);
+    });
+
+    hyperGard.fetch().then(function(home) {
+      console.log('then 1: homepage', home);
+      home.data.getFirstAction('formPostTwoFields', { param1: 'one', param2: 'two' }).fetch().then(function() {
+        console.log('then 1: formPostTwoFields', home);
+      }, function() {
+        console.log('error 1: formPostTwoFields', err);
+      });
+    }, function(err) {
+      console.log('error 1: homepage', err);
+    });
+  </script>
+</body>
+</html>
