@@ -1,0 +1,178 @@
+{
+  "_links": {
+    "curies": [
+      {
+        "name": "test",
+        "href": "http://www.example.com/docs/{rel}",
+        "templated": true
+      },
+      {
+        "href": "invalid curie"
+      }
+    ],
+    "self": {
+      "href": "./"
+    },
+    "noHref": {
+      "title": "No href, just title"
+    },
+    "noTitle": {
+      "href": "no/title"
+    },
+    "noParams": {
+      "href": "no/params/",
+      "title": "Link with no params"
+    },
+    "noParamsNotTemplated": {
+      "href": "no/params/",
+      "title": "Link with no params, templated false",
+      "templated": false
+    },
+    "noParamsTemplated": {
+      "href": "no/params/",
+      "title": "Link with no params, templated true",
+      "templated": true
+    },
+    "oneParamPath": {
+      "href": "one/param/{path}/",
+      "title": "One param in path",
+      "templated": true
+    },
+    "oneParamQuery": {
+      "href": "one/param/{?query}",
+      "title": "One param in query",
+      "templated": true
+    },
+    "twoParamsMixed": {
+      "href": "two/params/{path}/{?query}",
+      "title": "Two params, one in path, one in query",
+      "templated": true
+    },
+    "twoParamsPath": {
+      "href": "two/params/{path1}/{path2}/",
+      "title": "Two params in path",
+      "templated": true
+    },
+    "twoParamsQuery": {
+      "href": "two/params/{?query1,query2}",
+      "title": "Two params in query",
+      "templated": true
+    },
+    "rootRelativeUrl": {
+      "href": "/root/relative/",
+      "title": "Root relative url",
+      "templated": false
+    },
+    "pathRelativeUrl": {
+      "href": "../root/relative/",
+      "title": "Path relative url",
+      "templated": false
+    },
+    "absoluteUrl": {
+      "href": "http://www.example.com",
+      "title": "Absolute url",
+      "templated": false
+    },
+    "linkList": [
+      {
+        "href": "first/link",
+        "title": "first link"
+      },
+      {
+        "href": "second/link",
+        "title": "second link"
+      }
+    ],
+    "test:curie-test": {
+      "href": "/curie/test/",
+      "title": "Curie test link"
+    }
+  },
+  "_forms": {
+    "formNoAction": {
+      "method": "POST",
+      "fields": {}
+    },
+    "formNoMethod": {
+      "action": "form/",
+      "fields": {}
+    },
+    "formGetNoFields": {
+      "action": "form/",
+      "method": "GET"
+    },
+    "formGetEmptyFields": {
+      "action": "form/",
+      "method": "GET",
+      "fields": {}
+    },
+    "formGetOneField": {
+      "action": "form/",
+      "method": "GET",
+      "fields": {
+        "param": {}
+      }
+    },
+    "formGetTwoFields": {
+      "action": "form/",
+      "method": "GET",
+      "fields": {
+        "param1": {},
+        "param2": {}
+      }
+    },
+    "formGetTwoFieldsDefaultValue": {
+      "action": "form/",
+      "method": "GET",
+      "fields": {
+        "param1": {
+          "default": "test"
+        },
+        "param2": {}
+      }
+    },
+    "formPostNoFields": {
+      "action": "form/",
+      "method": "POST"
+    },
+    "formPostEmptyFields": {
+      "action": "form/",
+      "method": "POST",
+      "fields": {}
+    },
+    "formPostOneField": {
+      "action": "form/",
+      "method": "POST",
+      "fields": {
+        "param": {}
+      }
+    },
+    "formPostTwoFields": {
+      "action": "form/",
+      "method": "POST",
+      "fields": {
+        "param1": {},
+        "param2": {}
+      }
+    },
+    "formPostTwoFieldsDefaultValue": {
+      "action": "form/",
+      "method": "POST",
+      "fields": {
+        "param1": {
+          "default": "test"
+        },
+        "param2": {}
+      }
+    },
+    "formPostWithTemplatedAction": {
+      "action": "form/{param}/test",
+      "method": "POST",
+      "fields": {
+        "param1": {},
+        "param2": {}
+      },
+      "templated": true
+    }
+  }
+}
