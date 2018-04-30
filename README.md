@@ -1,5 +1,7 @@
 # HyperGard
 
+[![Build Status](https://travis-ci.org/Comcast/hypergard.svg?branch=master)](https://travis-ci.org/Comcast/hypergard)
+
 ### Options
 
 #### `applyMiddlewareStack`
