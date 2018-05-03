@@ -1,7 +1,7 @@
 {
   "name": "hyperGard",
   "version": "5.0.1",
-  "repository": "git@github.com:Comcast/hypegard.git",
+  "repository": "git@github.com:Comcast/hypergard.git",
   "bugs": "https://github.com/Comcast/hypergard/issues",
   "private": true,
   "main": "dist/hyperGard.js",
