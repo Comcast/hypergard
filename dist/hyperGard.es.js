@@ -1,3 +1,18 @@
+/**
+ * Copyright 2018 Comcast Cable Communications Management, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or   implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 'use strict';
 
 var typeObj = {};
@@ -120,6 +135,22 @@ var deepExtend = function(/*obj_1, [obj_2], [obj_N]*/) {
 ['Boolean', 'Number', 'String', 'Function', 'Array', 'Date', 'RegExp', 'Object', 'Error'].forEach(function(name) {
   typeObj["[object " + name + "]"] = name.toLowerCase();
 });
+
+/**
+ * Copyright 2018 Comcast Cable Communications Management, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or   implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 /**
  * @constructor
@@ -319,6 +350,22 @@ function UrlTemplate() {
 var urltemplate = new UrlTemplate();
 
 /**
+ * Copyright 2018 Comcast Cable Communications Management, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or   implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+ /**
  * @constructor
  */
 function UrlParse() {
@@ -551,8 +598,19 @@ function UrlParse() {
 var urlparse = new UrlParse();
 
 /**
- * @author Paul.Bronshteyn
- * @comment Built by a geek loaded on caffeine ...
+ * Copyright 2018 Comcast Cable Communications Management, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or   implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 'use strict';
 
@@ -1020,7 +1078,8 @@ var HyperGard = function(endpoint, initOptions) {
         name = this.getActionName(),
         payLoad = this.getPayload ? this.getPayload() : '',
         o = deepExtend({
-          method: this.getMethod()
+          method: this.getMethod(),
+          action: name,
         }, options.xhr, fetchOptions),
 
         onSuccess = function(response) {
@@ -1086,6 +1145,10 @@ var HyperGard = function(endpoint, initOptions) {
      * @returns {Promise}
      */
     this.fetch = function() {
+      var o = deepExtend({
+        method: 'GET',
+        action: 'homepage',
+      }, options.xhr);
       var
         onSuccess = function(response) {
           if (!options.cacheHomepage) {
@@ -1131,7 +1194,7 @@ var HyperGard = function(endpoint, initOptions) {
 
       if (!homepageLoaded) {
         homepageLoaded = true;
-        homepage = load(endpoint, options.xhr).then(onSuccess, onError);
+        homepage = load(endpoint, o).then(onSuccess, onError);
       }
 
       return homepage;
