@@ -492,7 +492,8 @@ var
         name = this.getActionName(),
         payLoad = this.getPayload ? this.getPayload() : '',
         o = deepExtend({
-          method: this.getMethod()
+          method: this.getMethod(),
+          action: name,
         }, options.xhr, fetchOptions),
 
         onSuccess = function(response) {
@@ -558,6 +559,10 @@ var
      * @returns {Promise}
      */
     this.fetch = function() {
+      var o = deepExtend({
+        method: 'GET',
+        action: 'homepage',
+      }, options.xhr);
       var
         onSuccess = function(response) {
           if (!options.cacheHomepage) {
@@ -603,7 +608,7 @@ var
 
       if (!homepageLoaded) {
         homepageLoaded = true;
-        homepage = load(endpoint, options.xhr).then(onSuccess, onError);
+        homepage = load(endpoint, o).then(onSuccess, onError);
       }
 
       return homepage;

@@ -62,7 +62,9 @@ describe('Middleware', function() {
       expect(window.fetch).toHaveBeenCalledWith(
         testEndpoint,
         {
+          action: jasmine.any(String),
           headers: jasmine.objectContaining(expectedHeaders),
+          method: jasmine.any(String),
         }
       );
     });

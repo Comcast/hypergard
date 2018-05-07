@@ -347,7 +347,9 @@ describe('hyperGard', function() {
         describe('validate fetch request', function() {
           it('passes correct params to fetch request', function() {
             expect(window.fetch).toHaveBeenCalledWith('/endpoint/', {
+              action: jasmine.any(String),
               headers: jasmine.any(Object),
+              method: jasmine.any(String),
             });
           });
         });

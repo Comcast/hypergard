@@ -57,3 +57,6 @@ typings/
 # dotenv environment variables file
 .env
 
+# Transpiled files to support testing
+.test-build
+
