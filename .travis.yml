@@ -3,3 +3,11 @@ language: node_js
 node_js:
 - '6'
 script: npm run build
+deploy:
+  provider: npm
+  email: charles_treatman@cable.comcast.com
+  api_key:
+    secure: ek9cjerAEM2voSyO7RY/erKlvLz+Stn1ByMrhhpTKXg/vF4EwwJq/9DsHWsMr0wd8Kxk3TTBbxnEmgCyDDkF0R1T7rtExPa6yiTiuuV+OHTrKhySwmAc4S8lIoTVtf60oXpJmQkdcYNDZblYTmLNL6q0+19ATBbLr3lpHEC8XxHffxxg98rc+DntZnoWRUNnf/ZqMcILRzYgwQL/WoCTBwlGntgyK9ClsKNhjtEt993bJovh1cFdjk888xGCBStToHMHMQu2NoS89jJdgpCA8YDV5t/lEfx2aI71H9CwhthHHVpTOewlRRjelaM8mvOd58igXdjWTNNKSVvmPVLwCeb382jPzquurD8H4WuAEQJxCunWs+wnEcjtoCRziZo44dr66fC6cYTmMXUQ3ZtlZTIG2t/d9/Xk6cRHNucuqGeK0BMbvluTx1qWpOAFtV2wu9mJWG2ecmm6Eg7XNORHP3U59BeLwB7zRNappFwZ2vjIrRfhLjjHwrgNFLNtbmenMoiaYm9DkbhPSY/WYkG8VwavXeP93y2C/ADgYdFvZMICkwRrJ1TtkxFbWfptTgXd5Beten+t47efGChCERUJu5AI9qw1URQ4pr5k1KNaTPtIzApqxWjefg/ul9dHf2QeqeC6A62uuqETdZcOwfT2BF0MrDiWaxSYFDwKw4yJCAw=
+  on:
+    tags: true
+    repo: Comcast/hypergard
