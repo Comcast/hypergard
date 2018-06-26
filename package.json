@@ -1,9 +1,9 @@
 {
-  "name": "hyperGard",
+  "name": "hypergard",
   "version": "5.1.0",
   "repository": "git@github.com:Comcast/hypergard.git",
   "bugs": "https://github.com/Comcast/hypergard/issues",
-  "private": true,
+  "homepage": "https://github.com/Comcast/hypergard",
   "main": "dist/hyperGard.js",
   "module": "dist/hyperGard.es.js",
   "devDependencies": {
@@ -49,5 +49,10 @@
   "directories": {
     "test": "test"
   },
+  "files": [
+    "src/**/*",
+    "lib/**/*",
+    "dist/**/*"
+  ],
   "license": "Apache-2.0"
 }
