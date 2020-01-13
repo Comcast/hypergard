@@ -1091,10 +1091,23 @@ var HyperGard = function(endpoint, initOptions) {
             });
           }
 
+          /**
+           * If flag to returnRawData is false & the object is a valid
+           * use Resource constructor
+           * @param {} data
+           */
+          function formatData(data) {
+            if (!o.returnRawData && isObject(data)) {
+              return new Resource(url, data);
+            }
+
+            return data;
+          }
+
           return response.json().then(function(data) {
             return {
               action: name,
-              data: isObject(data) ? new Resource(url, data) : response.text(),
+              data: formatData(data),
               xhr: response
             };
           }, function() {
