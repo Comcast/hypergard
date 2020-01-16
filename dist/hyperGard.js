@@ -620,7 +620,7 @@ var urlparse = new UrlParse();
  */
 'use strict';
 
-var version = '5.2.0';
+var version = '5.3.0';
 var defaultOptions = {
     preloadHomepage: true,
     cacheHomepage: false,
@@ -1252,6 +1252,17 @@ var HyperGard = function(endpoint, initOptions) {
     if (options.preloadHomepage) {
       this.fetch();
     }
+
+    /**
+     * Turns a raw response into a HyperGard resource object
+     * This needs closure over a specific instance of a `Hypergard` object
+     **/
+    this.generateResource = function(response) {
+      var path = response && response._links && response._links.self && response._links.self.href;
+      var resourceUrl = urlparse.urljoin(endpoint, path);
+
+      return new Resource(resourceUrl, response);
+    };
   };
 
 HyperGard.prototype.version = version;
