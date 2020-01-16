@@ -660,6 +660,17 @@ var
     if (options.preloadHomepage) {
       this.fetch();
     }
+
+    /**
+     * Turns a raw response into a HyperGard resource object
+     * This needs closure over a specific instance of a `Hypergard` object
+     **/
+    this.generateResource = function(response) {
+      var path = response && response._links && response._links.self && response._links.self.href;
+      var resourceUrl = urlparse.urljoin(endpoint, path);
+
+      return new Resource(resourceUrl, response);
+    };
   };
 
 HyperGard.prototype.version = version;
@@ -690,7 +701,6 @@ HyperGard.prototype.applyMiddlewareStack = function(middlewareStack) {
     applicationOrder.forEach(applyMiddleware);
   }
 };
-
 
 export default HyperGard;
 
