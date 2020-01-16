@@ -20,7 +20,7 @@ import urltemplate from '../lib/urltemplate.js';
 import urlparse from '../lib/urlparse.js';
 
 var
-  version = '4.0.0',
+  version = '5.2.0',
 
   defaultOptions = {
     preloadHomepage: true,
@@ -505,10 +505,23 @@ var
             });
           }
 
+          /**
+           * If flag to returnRawData is false & the object is a valid
+           * use Resource constructor
+           * @param {} data
+           */
+          function formatData(data) {
+            if (!o.returnRawData && isObject(data)) {
+              return new Resource(url, data);
+            }
+
+            return data;
+          }
+
           return response.json().then(function(data) {
             return {
               action: name,
-              data: isObject(data) ? new Resource(url, data) : response.text(),
+              data: formatData(data),
               xhr: response
             };
           }, function() {

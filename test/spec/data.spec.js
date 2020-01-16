@@ -230,23 +230,25 @@ describe('hyperGard', function() {
           });
         });
 
-        describe('returned string', function() {
-          beforeEach(function(done) {
-            this.testResponse = this.homepageData('string');
+        describe('with returnRawResponse option', function() {
+          var baseResponse = { a: 1 };
+          var processedResponse;
+
+          beforeEach(function() {
+            this.testResponse = this.homepageData(baseResponse);
             window.fetch.and.returnValue(this.testResponse);
-            this.link.fetch().then(this.onActionSuccess, this.onActionError).then(done, done);
+
+            return this.link.fetch({ returnRawData: true }).then(function (result) {
+              processedResponse = result.data;
+            });
           });
 
           it('should make fetch request', function() {
             expect(window.fetch).toHaveBeenCalled();
           });
 
-          it('should call resolve promise', function() {
-            expect(this.onActionSuccess).toHaveBeenCalled();
-          });
-
-          it('should not call reject promise', function() {
-            expect(this.onActionError).not.toHaveBeenCalled();
+          it('it should return raw response', function() {
+            expect(processedResponse).toEqual(baseResponse);
           });
         });
       });
