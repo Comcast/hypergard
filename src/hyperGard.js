@@ -20,7 +20,7 @@ import urltemplate from '../lib/urltemplate.js';
 import urlparse from '../lib/urlparse.js';
 
 var
-  version = '5.2.0',
+  version = '5.3.0',
 
   defaultOptions = {
     preloadHomepage: true,
