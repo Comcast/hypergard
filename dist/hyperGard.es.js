@@ -614,7 +614,7 @@ var urlparse = new UrlParse();
  */
 'use strict';
 
-var version = '4.0.0';
+var version = '5.2.0';
 var defaultOptions = {
     preloadHomepage: true,
     cacheHomepage: false,
