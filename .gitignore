@@ -60,3 +60,5 @@ typings/
 # Transpiled files to support testing
 .test-build
 
+# Build folder
+dist/
