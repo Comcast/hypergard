@@ -1,6 +1,6 @@
 {
   "name": "hypergard",
-  "version": "6.0.0",
+  "version": "6.0.0-rc1",
   "repository": "git@github.com:Comcast/hypergard.git",
   "bugs": "https://github.com/Comcast/hypergard/issues",
   "homepage": "https://github.com/Comcast/hypergard",
