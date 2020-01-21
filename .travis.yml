@@ -5,6 +5,7 @@ node_js:
 script: npm run build
 deploy:
   provider: npm
+  script: "cp .npmrc.template $HOME/.npmrc && npm publish"
   skip_cleanup: true
   email: brendan_davies@comcast.com
   api_key: NPM_TOKEN
