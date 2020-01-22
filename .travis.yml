@@ -1,13 +1,13 @@
 sudo: false
 language: node_js
 node_js:
-- '6'
+- '10'
 script: npm run build
 deploy:
   provider: npm
   skip_cleanup: true
   email: brendan_davies@comcast.com
-  api_key: NPM_TOKEN
+  api_key: $NPM_TOKEN
   on:
     tags: true
     repo: Comcast/hypergard

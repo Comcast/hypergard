@@ -2,9 +2,63 @@
 
 [![Build Status](https://travis-ci.org/Comcast/hypergard.svg?branch=master)](https://travis-ci.org/Comcast/hypergard)
 
+Javascript client for HAL APIs, with support for Hypermedia Forms
+
+
+## Installation
+
+When using [npm](https://www.npmjs.com/)
+
+```bash
+npm install --save hypergard
+```
+
+## Usage
+
+### Initialize HyperGard instance
+```javascript
+const HOMEPAGE_ENDPOINT = 'https://hypermedia-endpoint.com/'
+const HalApi = new HyperGard(HOMEPAGE_ENDPOINT, {});
+```
+
+### Fetch Homepage
+```javascript
+const homepageResource = await HalApi.fetchHomepage();
+```
+
 ### Options
 
+#### `cacheHomepage`
+
+Default value: `false`
+
+Determines whether to keep locally closed over reference to homepage response, since the Homepage resource should be highly cache-able by Hypermedia standards.
+
+#### `preloadHomepage`
+
+Default: `true`
+
+Auto-fetch homepage endpoint on initialization of HyperGard object.
+
+#### `xhr`
+
+Network request that will be passed along to [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API).
+
+Additionally `hypergard` implements a timeout around any network fetch, which will default to `60000` milliseconds
+
+```js
+{
+  // Headers to be added to each network fetch
+  headers: {
+    ['X-Custom-Header']: "value",
+  }
+  // Timeout period in milliseconds
+  timeout: 2000,
+}
+```
+
 #### `applyMiddlewareStack`
+
 Allows you to pass an array of middleware function to wrap around each fetch.
 
 Each middleware function should:
@@ -44,9 +98,11 @@ function loggerMiddleware(url, options, next) {
 ```
 
 #### Example of Applying middleware stack
-Middleware will be called based on order of array.
+
+Middleware can be applied to an initialized `HyperGard` object, and will be executed based on order of array.
+
 ```
-hyperGard.applyMiddlewareStack([
+HalApi.applyMiddlewareStack([
   setCustomHeader,
   loggerMiddleware,
 ]);

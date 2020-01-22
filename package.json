@@ -1,6 +1,6 @@
 {
   "name": "hypergard",
-  "version": "5.2.0",
+  "version": "6.0.0",
   "repository": "git@github.com:Comcast/hypergard.git",
   "bugs": "https://github.com/Comcast/hypergard/issues",
   "homepage": "https://github.com/Comcast/hypergard",
@@ -38,7 +38,8 @@
     "whatwg-fetch": "^2.0.3"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=10.0.0",
+    "npm": ">=6.0.0"
   },
   "scripts": {
     "build": "gulp build:all",
